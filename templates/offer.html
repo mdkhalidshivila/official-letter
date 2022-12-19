@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee details</title>
+    <style type="text/css">
+        @page {
+            size: 7.5in 10.6in;
+            margin: 0mm 16mm 24mm 16mm;
+        }
+
+        .bill-format .bill-header,
+        .patient-details {
+            display: inline-block;
+        }
+
+        .bill-format .bill-date,
+        .sign {
+            float: right;
+        }
+
+        .letter_conatiner {
+            width: 100%;
+        }
+
+        .image_container {
+            /* width: auto;
+            margin: 0 auto; */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .top_image {
+            height: 100px;
+            width: 100%;
+
+        }
+
+        .container_body {
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        .image_container2 {
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 35px;
+        }
+
+        .bottom_image {
+            height: 350px;
+            width: 100%;
+        }
+
+        .letter_body {
+            margin-top: 45px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="container">
+        <img src="../static/image/upper.png" alt="" height="150">
+    </div> -->
+    <!-- <div class="container mt-3">
+        <div class="bill-format">
+            <h4 style="text-align:center; font-size: 26px;">Relieving</h4>
+           
+            {% for pt in bill %}
+            <div class="bill-date">
+                <h6 style="font-size: 12px;">{{ pt.date|date:"d M Y" }}</h6>
+            </div>
+            {% endfor %}
+            <hr>
+            <div class="patient-details mt-3">
+                <p style="font-size: 16px;">Invoice details </p>
+                {% for pt in bill %}
+                <p style="font-size: 12px;">employee_id - {{ pt.employee_id }}</p>
+                <p style="font-size: 12px;">Name - {{ pt.employee_name.capitalize }}</p>
+                <p style="font-size: 12px;">Designation - {{ pt.designation }}</p>
+                <p style="font-size: 12px;">Join Date - {{ pt.joindate }}</p>
+                <p style="font-size: 12px;">Resignation Date - {{ pt.resignationdate }}</p>
+                {% endfor %}
+            </div>
+            <div class="">
+                <img src="../static/image/bottom.png" alt="" height="200">
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="container">
+        
+    </div> -->
+    {% for pt in bill %}
+    <div class="letter_conatiner">
+        <div class="image_container">
+            <img src="../static/image/upper.png" alt="" class="top_image">
+            <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/qrimage/{{pt.id}}.png" alt="">
+        </div>
+        
+        <div>
+            <p>To</p>
+            <h5> <span style="font-weight:bold;">{{ pt.employee_name.capitalize }}</span></h5>
+            {% endfor %}
+            <h3 style="text-align:center; font-size: 12px;"> Subject:- Internship Letter</h3>
+            <div class="container_body mt-3">
+                {% for pt in bill %}
+                {% comment %} <h4 style="font-size: 15px;"> <span style="font-size: 15px; font-weight:bold;">Employee
+                        Name :-{{ pt.employee_name.capitalize }}</span></h4> {% endcomment %}
+                <p style="font-weight:bold;">Joining date:- {{ pt.joindate }}</p>
+                <h5>Ref. No. :- {{ pt.date|date:"Y/md" }}/{{ pt.employee_id }}</h5>
+                <p style="font-weight:bold;">Job Type:- {{ pt.job_type }}</p>
+                <!-- <img class="watermark" src="../static/image/chat-icon.png" /> -->
+                <div class="letter_body mt-4">
+                    <h5>Dear <span style="font-weight:bold;">{{ pt.employee_name.capitalize }},</span></h5>
+                    <p><span style="font-weight:bold;">Congratulations!</span> With reference to your application and
+                        subsequent discussion, we are pleased to offer you the
+                        role of <span style="font-weight:bold;">{{pt.designation}}</span> on the Terms and Conditions,
+                        mutually agreed upon. Your Internship will be
+                        effective from <span style="font-weight:bold;">{{ pt.joindate|date:"d/m/Y" }}</span>.<br>
+                        Please note that the detailed <span style="font-weight:bold;">Letter of Internship</span> shall
+                        be issued as per your services for us. We would be
+                        happy if you accept our offer and make preparations to report at Shivila Technologies Private
+                        Limited for your
+                        induction on immediate basis.<br>
+                        You will not be receiving any stipend for 6 months. You will be receiving “Probationary
+                        Internship Employment” status. As a
+                        probationary Internship employee, you will not receive any of the employee benefits that a
+                        regular company employee
+                        receive. However, your service with the company is “at-will”, which means that either you or the
+                        company may
+                        terminate your service at any time, with cause and with notice.<br>
+                        During your internship, you may have access to trade secrets and confidential business
+                        information belonging
+                        to the company. By accepting this offer of internship, you acknowledge that you must keep all of
+                        this
+                        information strictly confidential.<br>
+                        If there are any further clarification that you require from us. Please contact our joining and
+                        induction team at
+                        Kolkata or get in touch with Mr Ankit Paul, who would answer your queries. He can be contacted
+                        at email
+                        <span style="font-weight:bold;">“hr@shivila.com”.</span>
+                        We welcome you to the Shivila Technologies Private Limited family and look forward to a fruitful
+                        collaboration.
+                        <br></br>
+                        <span style="font-weight:bold;">For Shivila Technologies Private Limited</span></p>
+                </div>
+                <div class="letter_ending " style="margin-left: 300px;">
+                    <h5><span style="font-weight:bold;">Employee Signature :- </span></h5>
+                </div>
+            </div>
+
+            <div class="image_container2">
+                <img src="../static/image/offer.jpg" alt="" class="bottom_image">
+            </div>
+            <p>{{pt.id}}</p>
+            <p style="text-align:center;">page 1</p>
+            {% comment %} <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/image/{{pt.employee_name}}.png" alt=""> {% endcomment %}
+            {% endfor %}
+        </div>
+        <div>
+            {% for pt in bill %}
+            <div class="image_container">
+                <img src="../static/image/upper.png" alt="" class="top_image">
+                <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/qrimage/{{pt.id}}.png" alt="">
+            </div>
+            <div>
+                
+                <br></br>
+                <p><span style="font-weight:bold; font-size: 12px;">Annexure 1:Terms and Conditions of Internship</span>
+                    <br></br>
+                    <span style="font-weight:bold;">Your services at Shivila Technologies will be governed by the terms
+                        and conditions detailed below.</span>
+                    <br></br>
+                    1. Any information you provide prior to your Internship with us will be subject to background
+                    verification. At any point in time,
+                    during your services at Shivila Technologies , should we find this information inconsistent , your
+                    internship with us will be revoked without any prior notice.
+                    <br>
+                    2. During your internship, you may become aware of information relating to the company's business,
+                    trade secrets, client
+                    names/details, and pricing structures. Confidential information remains the sole property of Shivila
+                    Technologies. You shall not,
+                    either during or after your employment, without the prior consent of Shivila Technologies , directly
+                    or indirectly divulge to any
+                    person or use the confidential information for your own or another's benefit. We expect you would
+                    not try to start or help any
+                    other person create the activities carried on by this company under any circumstance. It is
+                    prohibited and will attract a penalty fee.
+                    <br>
+                    3. During your services with us, we would expect you not to indulge in any activity or profession,
+                    which would prove detrimental
+                    to our operations. All software products and systems developed by you during your service with the
+                    company will be the sole
+                    property of the company.
+                    <br>
+                    4. Your designation at Shivila is "{{pt.designation}}" as mentioned above, and based on your
+                    designation. Your probation is for six
+                    months. During the probation period, either party may term inate the employment contract with
+                    stating reason upon providing the other party prior
+                    written notice of thirty (30) days to that effect.
+                    <br>
+                    5. Upon confirmation of your employment, the employment contract may be terminated by giving 90
+                    days' notice period. You are
+                    required to continue your service until your resignation is accepted and end of your notice period.
+                    Further, any salaries or other
+                    remuneration due to you will be forfeited if you fail to serve the appropriate notice periods
+                    mentioned above.
+                    <br>
+                    6. As per current requirements, you are hired for {{pt.designation}}, and in case you decide to
+                    leave the services of Shivila Technologies,
+                    you shall inform in w riting and shall serve the standard notice period as per clause 5 before the
+                    date of leaving. At any point
+                    in time, if this assignment is over without prior notice, you will have to report to our head office
+                    for the next opportunity to ascertain
+                    the fitment for Shivila Technologies projects. Else, you can opt for a one-month notice to find your
+                    next option.
+                </p>
+            </div>
+            <div class="letter_ending " style="margin-left: 300px; ">
+                <h5><span style="font-weight:bold;">Employee Signature :- </span></h5>
+            </div>
+            <div class="image_container2" style="margin-top: 40px; ">
+                <img src="../static/image/offer.jpg" alt="" class="bottom_image">
+            </div>
+            <p>{{pt.id}}</p>
+            <p style="text-align:center;">page 2</p>
+            {% comment %} <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/image/{{pt.employee_name}}.png" alt=""> {% endcomment %}
+            {% endfor %}
+        </div>
+        <div>
+            {% for pt in bill %}
+            <div class="image_container">
+                <img src="../static/image/upper.png" alt="" class="top_image">
+                <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/qrimage/{{pt.id}}.png" alt="">
+            </div>
+            <div>
+                
+                <p>
+                    8. At Shivila Technologies, we provide you with broad opportunities to enhance the gamut of your
+                    work area, and we may,
+                    in accordance to the same be transferring your services to other departments, and you may be
+                    assigned any work to test your aptitude during your services.
+                    <br>
+                    9. Leave Policy All leave will be calculated in the financial year from April 1 to March 31. We will
+                    not use the calendar year for the
+                    calculation of leave. You will be eligible for six days of personal leave during your internship
+                    period. Any excess leave availed
+                    beyond this eligibility wil l be on the loss of job. Leave not used by the end of the probationary
+                    period will lapse and cannot be
+                    carried forward. Upon completing probation, you will be eligible for Privileged Leave, which will
+                    accrue at the rate of 1 day per month
+                    worked and 12 days per calendar year. All Privileged leaves w ill have to be consumed within the
+                    financial year and w ill lapse at
+                    the end of the financial year cannot be carried forward/encased. Any excess leave availed will be
+                    calculated as a loss of pay.
+                    <br>
+                    10. Annual Performance Appraisals are a part of the work policies at Shivila Technologies, and your
+                    performance will solely spell
+                    out any revision in your compensation package. Your first salary change will be on the completion of
+                    one year of your service
+                    with us. After that, you will be aligned with our regular Annual cycle (April cycle).
+                    <br>
+                    11. You are governed by the company's policies in vogue from time to time. Your work timings may be
+                    changed depending on
+                    the organizational need and your responsibilities . The rules and regulations of the company's
+                    service that are in force may be
+                    framed, amended, altered, or extended from time to time. They will govern you in the same form as
+                    and when changed or
+                    amended. If required, you must work on Saturday, depending upon the requirement. Working time is
+                    work from office - 9 hours
+                    and work from home - 10 hours.
+                    <br>
+                    12. Shivila Technologies is an equal opportunity employer. We give respect and provide equal
+                    employment opportunities for all
+                    employees and applicants working with us regardless of race, color, national origin, political
+                    belief, religion, marital or family
+                    status, physical or mental disability, gender, sexual orientation, age, or irrelevant (not related
+                    to the work to be performed) factors.
+                    All our decisions will be based on job performance, merit, experience, and qualifications.
+                    <br>
+                    13. Upon confirmation of your employment, if you leave the company before completing one month, no
+                    remuneration will be
+                    paid to you. And you have no right to claim that in any circumstances via any laws.
+                    <br>
+                    14. Not reporting to work without any prior information or approved leave wil l be counted as absent
+                    and will be treated as leave
+                    without pay(LWP)
+                </p>
+            </div>
+            <br></br>
+            <div class="letter_ending " style="margin-left: 300px; ">
+                <h5><span style="font-weight:bold;">Employee Signature :- </span></h5>
+            </div>
+            <div class="image_container2">
+                <img src="../static/image/offer.jpg" alt="" class="bottom_image">
+            </div>
+            <p>{{pt.id}}</p>
+            <p style="text-align:center;">page 3</p>
+            {% comment %} <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/image/{{pt.employee_name}}.png" alt=""> {% endcomment %}
+            {% endfor %}
+        </div>
+        <div>
+            {% for pt in bill %}
+            <div class="image_container">
+                <img src="../static/image/upper.png" alt="" class="top_image">
+                <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/qrimage/{{pt.id}}.png" alt="">
+            </div>
+            <div>
+                
+                <p>
+                    15. Though we follow a 5-day working rule, the company may require your services on holidays with
+                    prior information provided
+                    to you on exceptional occasions. You should be available on those days as and when circumstances
+                    arrive.
+                    <br></br>
+                    16. Upon acceptance of internship with us at Shivila techno logies, the employee cannot take any
+                    part-time or full-time job opportunities
+                    with any other party or be involved in any other business during the term of employment with us. If
+                    the company comes to know, the internship will be terminated.
+                    <br></br>
+                    17. You cannot make any groupies, politics, revealing salary, or underestimating anyone within the
+                    organization. If it's done, strict
+                    action will be taken, and you will be terminated.
+                    <br></br>
+                    18. Any misbehavior with management or colleague will not be accepted. Depending upon the scenario,
+                    action will be taken, followed by termination.
+                    <br></br>
+                    19. If anyone is found not working in working hours and is done continuously, it will immediately be
+                    terminated. No remuneration
+                    will be paid, and you must return any company assets,ie., laptop, desktop, iPad, mobile, SIM card,
+                    etc. You shall immediately release
+                    those assets by visiting physically or sending a courier to the company address. All expenses
+                    related to delivering the
+                    assets wil l be borne by that specific employee only. The company will not be liable to pay any
+                    charges for that, and the company
+                    side will provide no courier or delivery facilities. And if it's not done within 1-2 working days,
+                    the company will take a legal step
+                    against you.
+                    <br></br>
+                    20. If you are found associated in any legal case, fraud, cheating, absconding, etc., your services
+                    will be terminated immediately.
+                    <br></br>
+                    21. If you leave the company within one month without a specific reason or without contacting anyone
+                    and not complying with
+                    our terms and conditions, you must pay a fine to the company for all the expenses to onboard you.
+                    <br></br>
+                    <h5><span style="font-weight:bold;">I hereby accept the offer terms and conditions:</span></h5>
+                </p>
+            </div>
+            <br></br>
+            <div class="letter_ending " style="margin-left: 300px; ">
+                <h5><span style="font-weight:bold;">Employee Signature :- </span></h5>
+            </div>
+            <div class="image_container2">
+                <img src="../static/image/offer.jpg" alt="" class="bottom_image">
+            </div>
+            <p>{{pt.id}}</p>
+            <p style="text-align:center;">page 4</p>
+            {% comment %} <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/image/{{pt.employee_name}}.png" alt=""> {% endcomment %}
+            {% endfor %}
+        </div>
+        <div>
+            {% for pt in bill %}
+            <div class="image_container">
+                <img src="../static/image/upper.png" alt="" class="top_image">
+                <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/qrimage/{{pt.id}}.png" alt="">
+            </div>
+            
+            <br></br>
+            <p style="font-weight:bold;"> Name:
+                <br>
+                Father/ Husband Name:
+                <br>
+                Mother / Wife Name:
+                <br>
+                Blood Group:
+                <br>
+                Personal Contact Number:
+                <br>
+                Emergency Contact Number:
+                <br></br>
+                Present address:
+                <br></br>
+
+                Permanent address:</p>
+            <p style="font-weight:bold;"> Reference 1:-</p>
+            <p>Name:
+                <br>
+                Phone no:
+                <br>
+                Relationship:</p>
+            <p style="font-weight:bold;">Reference 2:-</p>
+            <p>Name:
+                <br>
+                Phone no:
+                <br>
+                Relationship:</p>
+            <h5>Location:</h5>
+            <h5>Date:</h5>
+        </div>
+        <br></br>
+        <div class="letter_ending " style="margin-left: 300px; ">
+            <h5><span style="font-weight:bold;">Employee Signature :- </span></h5>
+        </div>
+        <div class="image_container2">
+            <img src="../static/image/offer.jpg" alt="" class="bottom_image">
+        </div>
+        <p>{{pt.id}}</p>
+        <p style="text-align:center;">page 5</p>
+        {% comment %} <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/image/{{pt.employee_name}}.png" alt=""> {% endcomment %}
+        {% endfor %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

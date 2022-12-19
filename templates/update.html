@@ -1,0 +1,64 @@
+{% extends 'bill-form.html' %}
+{% block content %}
+<style>
+    body {
+        height: 100vh;
+        background: linear-gradient(90deg, rgb(209, 252, 216) 0%, rgb(112, 255, 198)28%, rgba(66,222,196,1) 100%);
+        box-sizing: border-box;
+    }
+    .heading {
+        margin: 0 auto;
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: rgb(2, 55, 96);
+        letter-spacing: 1px;
+    }
+
+    .form_container {
+        background-color: white;
+        border: none;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+    
+    .btn_container{
+        width: 100%;
+    }
+    .submit_btn{
+        width: 180px;
+        height: 40px;
+        border-radius: 8px;
+        font-size: 18px;
+        width: 700;
+        margin:  0 auto;
+        background-color: rgba(66,222,196,1) ;
+        border: none;
+        color: rgba(5, 5, 5, 0.699);
+    }
+    .home_link {
+        text-decoration: none;
+        margin-top: 10px;
+        color: rgb(6, 99, 133);
+        font-size: 20px;
+    }
+</style>
+<body>
+   <div class="row">
+       <div class="col-lg-6 col-md-6 col-sm-6 col-12 offset-3">
+        <form class= "form_container" action="" method="post">
+            <p class="heading">Letter Update</p>
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="submit_btn" value="Update">
+            <span>Back to<a href="{% url 'index' %}" class="home_link">&nbspHome</a></span>
+        </form>
+       </div>
+   </div>
+</body>
+{% endblock content %}

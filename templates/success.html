@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Rejected list{% endblock %}
+{% block nav_home %}active{% endblock %}
+{% block content %}
+
+<style>
+    body {
+        min-height: 100vh;
+        max-height: auto;
+        /* background: linear-gradient(rgba(57, 14, 211, 0.751), rgba(11, 128, 224, 0.591)); */
+        /* background: rgb(106,198,121); */
+        background: linear-gradient(90deg, rgb(209, 252, 216) 0%, rgb(112, 255, 198)28%, rgba(66,222,196,1) 100%);
+    }
+
+    .card_container {
+        border: none;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background: white;
+    }
+    .employee_details{
+        color: black;
+    }
+    .card-footer {
+        display: grid;
+        grid-template-columns: repeat(4, 0.5fr);
+        gap: 10px 5px;
+    }
+    .link-btn{
+        width: auto;
+        height: 40px;
+        text-align: center;
+        border-radius: 6px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 3px 0 3px;
+    }
+    @media screen and (min-width:270px) and (max-width:500px) {
+        a{
+            font-size: 12px;
+        }
+    }
+</style>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for pt in bill %}
+    <div class="col">
+        <div class="card card_container">
+            <div class="card-header">
+                <div class="card-title">
+                    <h5 class=" pt-2 employee_details">Employee details :</h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title pt-2">Employee name - {{ pt.employee_name.capitalize }}</h5>
+                <p class="card-text mt-4">Designation - {{ pt.designation }}</p>
+                {% comment %} <p class="card-text">Resignation Date - {{ pt.resignationdate }}</p> {% endcomment %}
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'sendemaildirect' pt.id %}" class="link-btn"  style="background-color: #fcff3b; ">Rejected mail </a>
+                <a href="{% url 'updatedata' pt.id %}"  class="link-btn" style="background-color: #fdbb65;">Update Data </a>
+                <a href="{% url 'delete' pt.id %}" class="btn btn-danger" style="width: auto; height:40px;" >Delete</a>
+                {% comment %} <a href="{% url 'updateView' pt.id %}" class="btn btn-success">Update</a> {% endcomment %}
+                <p class="text-end text-dark">{{ pt.date }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div><br>
+{% endblock %}

@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home{% endblock %}</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+    .navbar {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        /* background-color: rgba(70, 0, 0, 0.767); */
+        /* background-color: #5e2804; */
+        background-color: transparent;
+    }
+
+    .nav-link,
+    .navbar-brand {
+        color: rgb(45, 0, 0);
+        font-weight: 600;
+        font-family: Arial, Helvetica, sans-serif;
+        letter-spacing: 0.5px;
+    }
+
+    .nav-link:hover {
+        color: rgb(0, 0, 0);
+    }
+
+    .navbar-brand:hover {
+        color: rgb(0, 0, 0);
+    }
+
+    .collapse_navbar {
+        width: 100%;
+        display: flex;
+        justify-content: flex-between;
+        align-items: center;
+    }
+
+    .list a {
+        background-color: white;
+        color: #001f7a;
+    }
+
+    .icon {
+        height: 30px;
+        width: 30px;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+    .footer {
+        height: 90px;
+        width: 100%;
+        /* border: 1px solid black; */
+        overflow: hidden;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        font-family: 'Roboto', sans-serif;
+        letter-spacing: 1px;
+        margin-top: 150px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .header_box {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .shivilaLogo {
+        height: 50px;
+    }
+
+    .search_form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .search_input {
+        width: 70%;
+        height: 35px;
+        letter-spacing: 1px;
+        font-weight: 600;
+        border: none;
+        border-radius: 7px;
+        padding: 0 15px;
+    }
+
+    .search_submit {
+        height: 35px;
+        border-radius: 50px;
+        width: 120px;
+        letter-spacing: 1px;
+        font-size: 12px;
+        font-weight: 600;
+        border-style: none;
+    }
+
+    @media screen and (min-width:270px) and (max-width:500px) {
+        .firstRow {
+            font-size: 12px;
+        }
+
+        .secondRow {
+            font-size: 12px;
+        }
+
+
+
+
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid">
+            <div class="header_box">
+                <a class="productLogo" href="https://shivila.com/" target="_blank"><img
+                        src="https://attenda.shivila.in/image/shivilaLogoImg.png" alt="" class="shivilaLogo"></a>
+                <a class="navbar-brand">Official Letter</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_home %}{% endblock %} active" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Create letter
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="list"><a class="dropdown-item {% block nav_bill %}{% endblock %}"
+                                    href="{% url 'reexpView' %}">Create Relieving Letter</a></li>
+                            <li class="list"><a class="dropdown-item {% block nav_employee_exp %}{% endblock %}"
+                                    href="{% url 'reexpView' %}">Create Employee Experience Letter</a></li>
+                            <li class="list"><a class="dropdown-item {% block nav_employee_offer %}{% endblock %}"
+                                    href="{% url 'formView' %}">Create Employee Offer Letter</a></li>
+                            <li class="list"><a
+                                    class="dropdown-item {% block nav_candidates_rejected_mail %}{% endblock %}"
+                                    href="{% url 'directmailView' %}">Create candidates rejected mail</a></li>
+                        </ul>
+                    </li>
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link {% block nav_emailattachment %}{% endblock %} active"
+                            href="/emailattachment">Send Email</a>
+                    </li> {% endcomment %}
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link {% block nav_register %}{% endblock %} active"
+                            href="{% url 'register' %}">Register</a>
+                    </li> {% endcomment %}
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_success %}{% endblock %} active"
+                            href="{% url 'success' %}">Rejected List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_reexp %}{% endblock %} active"
+                            href="{% url 'reexp' %}">Relieving/Exp List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_export_to_excel %}{% endblock %} active"
+                            href="{% url 'export_to_excel' %}">Export Data</a>
+                    </li>
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link {% block nav_login %}{% endblock %} active"
+                            href="{% url 'login' %}">Login</a>
+                    </li> {% endcomment %}
+                    {% endif %}
+                </ul>
+                <center>
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'SearchView' %}" method="GET" value="{{request.GET.q}}" class="search_form">
+                        <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search"
+                            class="search_input" />
+                        <input type="submit" name="submit" value="Search" class="search_submit" />
+                    </form>
+
+
+                    {% endif %}
+                </center>
+                <form class="d-flex" role="search">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link {% block nav_username %}{% endblock %} active" href="#">Welcome,
+                        {{user.username}}</a>
+                    <a class="nav-link {% block nav_logout %}{% endblock %} active" href="/logout"><i
+                            class="fa-solid fa-right-from-bracket" id="icon"></i></a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </nav>
+    {% if submitbutton == 'Search' and request.GET.q != '' %}
+    {% if results %}
+    <br>
+    <h4>Results for {{ request.GET.q }}</h4>
+    <br />
+
+    {% for result in results %}
+
+    <h5>Doc No :- {{result.id}}</h5>
+    <br />
+
+    <h5>Candidate Name :- {{result.employee_name}}</h5>
+    <br />
+
+    <h5>Candidate Mail :- {{result.employee_email}}</h5>
+    <br />
+
+    <h5>Releaseing Date :- {{result.date}}</h5>
+    <br />
+    <h5>Join Date :- {{result.joindate}}</h5>
+    <br />
+    <h5>Designation :- {{result.designation}}</5>
+    <br />
+    <h5>Job Type :- {{result.job_type}}</h5>
+    <br />
+    ***************************************
+
+
+    {% endfor %}
+    {% else %}
+    No search results for this query
+    {% endif %}
+    {% endif %}
+    <div class="container mt-3">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="footer">
+        <h5 class="firstRow">All Right Reserved. Developed By <a href="https://shivila.com/" target="_blank">Shivila
+                Technologies</a> </h5>
+
+        <h6 class="secondRow">Copyright © Shivila Technologies Private Limited, 2022. Use of our products is governed by
+            our Privacy Policy.</h6>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

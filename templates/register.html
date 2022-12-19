@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+</head>
+
+<style>
+	body {
+		height: 100vh;
+		/* background:#3bff9d; */
+		/* background-color: rgba(66,222,196,1); */
+		background: linear-gradient(90deg, rgb(146, 225, 159) 0%, rgb(72, 245, 176)28%, rgba(66,222,196,1) 100%);
+		height: auto;
+	}
+
+	.registration_container {
+		border: none;
+		border-radius: 10px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		width: 50%;
+		/* background: linear-gradient(rgba(175, 74, 234, 0.623),rgba(232, 9, 135, 0.514)); */
+		background-color: white;
+		margin-bottom: 50px;
+	}
+
+	.form_container {
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 35px;
+	}
+
+	.form_container>* {
+		margin: 10px 0;
+	}
+
+	.registration_heading {
+		text-align: center;
+		font-size: 30px;
+		letter-spacing: 1px;
+	}
+
+	.submit_btn {
+		align-self: center;
+		width: 270px;
+		margin-left: 100px;
+		background-color: #3bff9d;
+		border: none;
+		font-size: 18px;
+	}
+	.submit_btn:hover{
+    background-color: rgba(66,222,196,1);
+  }
+	.link{
+    color: #3bff9d;
+    text-decoration: none;
+	font-weight: 600;
+	letter-spacing: 1px;
+    
+  }
+  .link:hover{
+    color: rgb(11, 165, 220);
+  }
+
+
+
+
+  @media screen and (min-width:270px) and (max-width:500px) {
+    .registration_container{
+      width: 100%;
+    }
+    .form_container{
+      width: 100%;
+    }
+	.submit_btn{
+		width: 150px;
+	}
+  }
+</style>
+<!--Register-->
+<div class="container py-5 registration_container">
+	<h1 class="registration_heading">Register</h1>
+	<form method="POST" class="form_container">
+		{% csrf_token %}
+		{% comment %} {{ register_form|crispy }} {% endcomment %}
+		<a>{{ register_form.username | as_crispy_field}}</a>
+	
+		<a>{{ register_form.email | as_crispy_field}}</a>
+
+
+		<a>{{ register_form.password1 | as_crispy_field}}</a>
+		<i class="fa-solid fa-eye" id="show-password"></i>
+
+	
+	
+		<a>{{ register_form.password2 | as_crispy_field}}</a>
+	
+		
+		<button class="btn btn-primary submit_btn" type="submit">Register</button>
+	</form>
+	<p class="text-center">If you already have an account, <a href="/" class="link">Login</a> here!</p>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+	{%for message in messages %}
+		swal('{{message}}');
+	{% endfor %}
+</script>
+{% comment %} <script>
+	const showPassword = document.querySelector("#show-password");
+	const showPassword = document.querySelector("#password");
+	
+	showPassword.addEvetListener("click", function(){
+		this.classList.toggle("fa-eye-slash");
+		const type = passwordField.getAttribute("type")=== "password" ? "text" : "password"; 
+		passwordField.setAttribute("type", type);
+	})
+
+</script> {% endcomment %}
+
+
+{% endblock %}
+
