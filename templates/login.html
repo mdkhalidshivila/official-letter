@@ -16,7 +16,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 30%;
+    width: 40%;
     background-color: white;
   }
 
@@ -109,7 +109,11 @@
   <h1 class="login_heading">Users Login</h1>
   <form method="POST" class="form_container">
     {% csrf_token %}
-    {{ login_form|crispy }}
+    {% comment %} {{ login_form|crispy }} {% endcomment %}
+    <a>{{ login_form.username | as_crispy_field}}</a>
+    <br></br>
+    <input type="password" name="password" id="myInput">
+		<input type="checkbox" onclick="myFunction()">Show Password
     <button class="btn btn-primary submit_btn" type="submit">Login</button>
   </form>
   <br>
@@ -118,6 +122,7 @@
 </div>
 
 <center>
+  <br></br>
   <h1 style= "justify-content: center;"> Employee Verfication Search Bar</h1>
   <form action="{% url 'employeeSearchView' %}" method="GET" value="{{request.GET.q}}" class="search_form">
       <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search"
@@ -170,5 +175,15 @@ No search results for this query
   {%for messag in messages %}
     swal('{{messag}}');
   {% endfor %}
+</script>
+<script>
+  function myFunction() {
+		var x = document.getElementById("myInput");
+		if (x.type === "password") {
+		  x.type = "text";
+		} else {
+		  x.type = "password";
+		}
+	}
 </script>
 {% endblock %}

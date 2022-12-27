@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" href="{% static 'image/shivila_logo.ico' %}">
+    <link rel="icon" href="../static/image/shivila_logo.png">
 </head>
 <style>
     .navbar {
@@ -140,7 +140,7 @@
         <div class="container-fluid">
             <div class="header_box">
                 <a class="productLogo" href="https://shivila.com/" target="_blank"><img
-                    src="../static/image/shivilaLogoImg.png" alt="" class="shivilaLogo"></a>
+                        src="../static/image/shivilaLogoImg.png" alt="" class="shivilaLogo"></a>
                 <a class="navbar-brand">Official Letter</a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -170,6 +170,9 @@
                             <li class="list"><a
                                     class="dropdown-item {% block nav_candidates_rejected_mail %}{% endblock %}"
                                     href="{% url 'directmailView' %}">Create candidates rejected mail</a></li>
+                            <li class="list"><a
+                                    class="dropdown-item {% block nav_candidates_Apreciation %}{% endblock %}"
+                                    href="{% url 'appreciationView' %}">Create candidates Appreciation</a></li>
                         </ul>
                     </li>
                     {% comment %} <li class="nav-item">
@@ -187,6 +190,10 @@
                     <li class="nav-item">
                         <a class="nav-link {% block nav_reexp %}{% endblock %} active"
                             href="{% url 'reexp' %}">Relieving/Exp List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block nav_appreciate %}{% endblock %} active"
+                            href="{% url 'appreciate' %}">Appreciation List</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% block nav_export_to_excel %}{% endblock %} active"

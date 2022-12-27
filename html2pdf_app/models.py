@@ -135,3 +135,31 @@ class Reexp(models.Model):
 
     class Meta:
         ordering = ('employee_id',)
+
+
+class Appreciation(models.Model):
+    employee_id = models.IntegerField()
+    employee_email = models.EmailField()
+    employee_name = models.CharField(max_length=100)
+    job_type = models.CharField(max_length=30)
+    designation = models.CharField(max_length=100)
+    project_name = models.CharField(max_length=100)
+    joindate = models.DateField(auto_now_add=False,null=True)
+    date = models.DateField(auto_now_add=True,null=False)
+    id = models.UUIDField(primary_key=True,unique=True, default=uuid.uuid4,editable = False)
+    # barcode = models.ImageField(upload_to='image/', blank=True)
+    qrcode= models.ImageField(upload_to='qrimage/', blank=True)
+
+    def __str__(self):
+        return self.employee_name.capitalize()
+
+    def save(self, *args, **kwargs):
+        qr_image = qrcode.make(self.id)
+        qr_offset = Image.new('RGB', (310, 310), 'white')
+        qr_offset.paste(qr_image)
+        files_name = f'{self.id}.png'
+        stream = BytesIO()
+        qr_offset.save(stream, 'PNG')
+        self.qrcode.save(files_name, File(stream), save=False)
+        qr_offset.close()
+        super().save(*args, **kwargs) 

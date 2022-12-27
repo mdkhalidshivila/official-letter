@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Genrate offer Letter{% endblock %}
+{% block title %}Generate offer Letter{% endblock %}
 {% block nav_bill %}active{% endblock %}
 {% block content %}
 {% if form.errors %}
@@ -63,15 +63,15 @@
 
 <script>
     function myFun(){
-        var correct_way = /^[A-Za-z]+$/;
+        var correct_way = /^[A-Za-z]/;
         var a = document.getElementById("id_employee_name").value;
 
         if (a.length<3){
             document.getElementById("Message").innerHTML="** username must be 3 character";
             return false;
         }
-        if (a.length>100){
-            document.getElementById("Message").innerHTML="** username must be less than 100 character";
+        if (a.length>20){
+            document.getElementById("Message").innerHTML="** username must be less than 20 character";
             return false;
         }
         if (a.match(correct_way))
@@ -103,7 +103,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
             <div class="form-group">
                 <label for="id_employee_name" class="form-control-label mt-3 mb-3">Employee name:</label>
-                <input type="text" name="employee_name" pattern="[A-Za-z]{1,100}" class="form-control bg-light" maxlength="100" required
+                <input type="text" name="employee_name" pattern="[A-Za-z]{1,32}" class="form-control bg-light" maxlength="100" required
                     id="id_employee_name">
                 <p id= "Message" ></p>
             </div>

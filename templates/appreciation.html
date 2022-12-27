@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Relieving details</title>
+    <title>Employee Appreciation details</title>
     <style type="text/css">
         @page {
-            size: 7.5in 10.5in;
+            size: 7.5in 10.6in;
             margin: 0mm 16mm 24mm 16mm;
         }
 
@@ -63,64 +63,42 @@
 </head>
 
 <body>
-    <!-- <div class="container">
-        <img src="../static/image/upper.png" alt="" height="150">
-    </div> -->
-    <!-- <div class="container mt-3">
-        <div class="bill-format">
-            <h4 style="text-align:center; font-size: 26px;">Relieving</h4>
-           
-            {% for pt in bill %}
-            <div class="bill-date">
-                <h6 style="font-size: 12px;">{{ pt.date|date:"d M Y" }}</h6>
-            </div>
-            {% endfor %}
-            <hr>
-            <div class="patient-details mt-3">
-                <p style="font-size: 16px;">Invoice details </p>
-                {% for pt in bill %}
-                <p style="font-size: 12px;">employee_id - {{ pt.employee_id }}</p>
-                <p style="font-size: 12px;">Name - {{ pt.employee_name.capitalize }}</p>
-                <p style="font-size: 12px;">Designation - {{ pt.designation }}</p>
-                <p style="font-size: 12px;">Join Date - {{ pt.joindate }}</p>
-                <p style="font-size: 12px;">Resignation Date - {{ pt.resignationdate }}</p>
-                {% endfor %}
-            </div>
-            <div class="">
-                <img src="../static/image/bottom.png" alt="" height="200">
-            </div>
-        </div>
-    </div> -->
-    <!-- <div class="container">
-        
-    </div> -->
     {% for pt in bill %}
     <div class="letter_conatiner">
         <div class="image_container">
             <img src="../static/image/upper.png" alt="" class="top_image">
             <img width="110px" style="float: left;" src="http://127.0.0.1:8000/media/qrimage/{{pt.id}}.png" alt="">
         </div>
-        <!-- <div class="pdf-header"> 
-            <img  src="http://127.0.0.1:8000/media/image/{{ pt.employee_name }}.png" width="50" height="30"> 
-        </div> -->
-        <h3 style="text-align:center; font-size: 20px;">Relieving letter</h3>
+        <h3 style="text-align:center; font-size: 20px;">Appreciation Certificate</h3>
         <div class="container_body mt-3">
             
             <h4 style="font-size: 15px;">Name of the Employee:- <span style="font-size: 15px; font-weight:bold;">{{ pt.employee_name.capitalize }}</span></h4>
             <h5>Employee ID:- {{ pt.employee_id }}</h5>
-            <h5>Joining date:- {{ pt.joindate }}</h5>
             <h5>Job Type:- {{ pt.job_type }}</h5>
-            <h6>Releaseing date:- {{ pt.date|date:"d M Y" }}</h6>
 
             <!-- <img class="watermark" src="../static/image/chat-icon.png" /> -->
 
             <div class="letter_body mt-4">
                 <h5>Dear <span>{{ pt.employee_name.capitalize }},</span></h5>
-                <h5>Sub:- Relieving letter</h5>
-                <h5>We are in receipt of your resignation dated {{ pt.resignationdate }}</h5>
-                <h5>We have accepted your resignation and as per company policy you will be relieved with effect form
-                    {{ pt.resignationdate }}</h5>
-                <h5>We with you all the best for your future endeavours.</h5>
+                <h5>Sub:- Appreciation Certificate For an employee</h5>
+                <h5> We are writing this letter to appreciate you for the incredible work you have done on the launch of our
+                    new {{pt.project_name}}. On behalf of the Management, I would like to recognize the extended working hours that
+                    biggest launch of the company ever.
+
+                    you have put in this project and amazing creativity that you have exhibited in making this launch the
+                    The Management has been keeping a close watch on the progress of the project at every level as this is
+                    one of the most prestigious products of the company and therefore, a lot was at stake with this project.
+
+                    We have seen you work beyond working hours, work with dedication and focus, show amazing
+                    professionalism dealing with all the challenges that came your way. Your commitment and zealous
+                    approach towards your job is the reason behind the impressive performance that you have delivered.
+                    Seeing such a remarkable performance, the Management has decided to announce an interim bonus for
+                    you as a reward for your hard work and success. We are hopeful that other employees of our company.
+                    will also take inspiration from your work and exhibit better performances.
+
+                    With {{pt.project_name}} you have sent new benchmark for yourself and for others around you. We are expecting
+                    that you will again impress us with your finest work in future and give us successful results.
+                    On behalf of the Management, I thank you once again for such a brilliant performance.</h5>
                 <h5>Thanking you,</h5>
             </div>
             <div class="letter_ending">

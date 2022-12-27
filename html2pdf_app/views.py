@@ -4,8 +4,8 @@ from django.shortcuts import render
 from traceback import format_stack
 from django.shortcuts import redirect, render, HttpResponse
 from django.views.decorators.csrf import csrf_protect 
-from .models import Bill, Rejected, Reexp
-from .forms import BillForm, RejectedForm, ReexpForm
+from .models import Bill, Rejected, Reexp, Appreciation
+from .forms import BillForm, RejectedForm, ReexpForm, AppreciationForm
 from .utils import Render
 from django.contrib.auth.decorators import login_required
 from .forms import NewUserForm, LinkMail
@@ -135,7 +135,7 @@ from django.views import View
 from django.core.mail import EmailMessage
 
 from django.conf import settings
-from .forms import EmailForm, RelivingEmailForm
+from .forms import EmailForm, RelivingEmailForm, AppreciationEmailForm
 
 class EmailAttachementView(View):
     form_class = EmailForm
@@ -378,3 +378,56 @@ def password_reset_request(request):
 					return redirect ("/password_reset/done/")
 	password_reset_form = PasswordResetForm()
 	return render(request=request, template_name="password_reset.html", context={"password_reset_form":password_reset_form})
+
+
+
+@csrf_protect 
+def appreciationView(request):
+    if request.method == 'POST':
+        form = AppreciationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('appreciate')
+    else:
+        form = AppreciationForm()
+    return render(request, 'appreciation_form.html', {'form':form})
+
+def appreciation(request):
+    bill = Appreciation.objects.all().order_by('-date')
+    return render(request, 'appreciate.html', {'bill': bill})
+
+@csrf_protect 
+def appreciation_pdf(request, id):
+    bill = Appreciation.objects.filter(id =id)
+    return Render.render('appreciation.html', {'bill':bill})
+
+
+class AppreciationEmailAttachementView(View):
+    form_class = AppreciationEmailForm
+    template_name = 'appreciationemailattachment.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'appreciationemail_form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+
+        if form.is_valid():
+            
+           
+           
+            email = form.cleaned_data['email']
+            files = request.FILES.getlist('attach')
+
+            try:
+                mail = EmailMessage('APPRECIATION LETTER', 'Greetings from Shivila Technologies.',
+                settings.EMAIL_HOST_USER, [email])
+                for f in files:
+                    mail.attach(f.name, f.read(), f.content_type)
+                mail.send()
+                return render(request, self.template_name, {'appreciationemail_form': form, 'error_message': 'Sent email to %s'%email})
+            except:
+                return render(request, self.template_name, {'appreciationemail_form': form, 'error_message': 'Either the attachment is too big or corrupt'})
+
+        return render(request, self.template_name, {'appreciationemail_form': form, 'error_message': 'Unable to send email. Please try again later'})

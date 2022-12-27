@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Genrate Relieving / experience Letter{% endblock %}
+{% block title %}Generate Appreciation Certificate{% endblock %}
 {% block nav_bill %}active{% endblock %}
 {% block content %}
 {% if form.errors %}
@@ -77,8 +77,8 @@
         if (a.match(correct_way))
             true;
             else{
-            document.getElementById("Message").innerHTML="** only Alphabets are allowed";
-            return false;
+                document.getElementById("Message").innerHTML="** only Alphabets are allowed";
+                return false;
 
         }
     }
@@ -105,6 +105,14 @@
                 <label for="id_employee_name" class="form-control-label mt-3 mb-3">Employee name:</label>
                 <input type="text" name="employee_name" class="form-control bg-light" maxlength="100" required
                     id="id_employee_name">
+                <p id= "Message" ></p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="id_project_name" class="form-control-label mt-3 mb-3">Project name:</label>
+                <input type="text" name="project_name" class="form-control bg-light" maxlength="100" required
+                    id="id_project_name">
                 <p id= "Message" ></p>
             </div>
         </div>
@@ -175,13 +183,6 @@
             <div class="form-group">
                 <label for="id_joindate" class="form-control-label mt-3 mb-3">Join Date:</label>
                 <input type="date" name="joindate" class="form-control bg-light" required id="id_joindate">
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-            <div class="form-group">
-                <label for="id_resignationdate" class="form-control-label mt-3 mb-3">Resignation Date:</label>
-                <input type="date" name="resignationdate" class="form-control bg-light" required
-                    id="id_resignationdate">
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-12">

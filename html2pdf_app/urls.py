@@ -1,7 +1,7 @@
 from unicodedata import name
 from django.urls import path
 from . import views
-from .views import EmailAttachementView, GeneratePdfView, RelivingEmailAttachementView
+from .views import EmailAttachementView, GeneratePdfView, RelivingEmailAttachementView, AppreciationEmailAttachementView
 
 urlpatterns = [
     path('index/', views.index, name = 'index'),
@@ -22,6 +22,7 @@ urlpatterns = [
     path(r'^offer_pdf/<id>/', views.offer_pdf, name='offer_pdf'),
     path('emailattachment/', EmailAttachementView.as_view(), name='emailattachment'),
     path('relivingemailattachment/', RelivingEmailAttachementView.as_view(), name='relivingemailattachment'),
+    path('appreciationemailattachment/', AppreciationEmailAttachementView.as_view(), name='appreciationemailattachment'),
     path(r'^sendemaildirect/<id>/', views.sendemaildirect, name ='sendemaildirect'),
     path('pdf/', GeneratePdfView.as_view(), name='generatepdf'),
     path('export_to_excel/', views.export_data_excel, name= 'export_to_excel'),
@@ -29,5 +30,8 @@ urlpatterns = [
     # path('attachpdf/<int:id>/', views.attachpdf, name="attachpdf"),
     path('SearchView/', views.SearchView, name='SearchView'),
     path('EmployeeSearchView/', views.employeeSearchView, name='employeeSearchView'),
-    path("password_reset/", views.password_reset_request, name="password_reset")
+    path("password_reset/", views.password_reset_request, name="password_reset"),
+    path('appreciation-form/', views.appreciationView, name = 'appreciationView'),
+    path('appreciate/', views.appreciation, name = 'appreciate'),
+    path(r'^appreciation_pdf/<id>/', views.appreciation_pdf, name='appreciation_pdf'),  
 ]

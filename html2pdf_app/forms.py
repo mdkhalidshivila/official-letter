@@ -1,5 +1,5 @@
 from django import forms
-from .models import Bill, Rejected, Reexp
+from .models import Bill, Rejected, Reexp, Appreciation
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -19,6 +19,10 @@ class ReexpForm(forms.ModelForm):
         model = Reexp 
         fields = "__all__"
 
+class AppreciationForm(forms.ModelForm):
+    class Meta:
+        model = Appreciation
+        fields = "__all__"
 
 # Create your forms here.
 
@@ -51,5 +55,9 @@ class LinkMail(forms.Form):
         return self.message
 
 class RelivingEmailForm(forms.Form):
+    email = forms.EmailField()
+    attach = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+class AppreciationEmailForm(forms.Form):
     email = forms.EmailField()
     attach = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))

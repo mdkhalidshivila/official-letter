@@ -90,14 +90,16 @@
 	
 		<a>{{ register_form.email | as_crispy_field}}</a>
 
+		Password*<br></br>
+		<input type="password" name="password1" id="myInput">
+		<input type="checkbox" onclick="myFunction()">Show password
+		{% comment %} <i class="fa-solid fa-eye" id="show-password"></i> {% endcomment %}
 
-		<a>{{ register_form.password1 | as_crispy_field}}</a>
-		<!-- <i class="fa-solid fa-eye" id="show-password"></i> -->
-
-	
-	
-		<a>{{ register_form.password2 | as_crispy_field}}</a>
-	
+		<br></br>
+		Comfirm Password*<br></br>
+		<input type="password" name="password2" id="myInput1"></input>
+		{% comment %} <a>{{ register_form.password2 | as_crispy_field}}</a> {% endcomment %}
+		<input type="checkbox" onclick="myFunctions()">Show password
 		
 		<button class="btn btn-primary submit_btn" type="submit">Register</button>
 	</form>
@@ -109,17 +111,33 @@
 		swal('{{message}}');
 	{% endfor %}
 </script>
-<!-- {% comment %} <script>
-	const showPassword = document.querySelector("#show-password");
+<script>
+	function myFunction() {
+		var x = document.getElementById("myInput");
+		if (x.type === "password") {
+		  x.type = "text";
+		} else {
+		  x.type = "password";
+		}
+	}
+	function myFunctions() {
+		var x = document.getElementById("myInput1");
+		if (x.type === "password") {
+		  x.type = "text";
+		} else {
+		  x.type = "password";
+		}
+	}
+	{% comment %} const showPassword = document.querySelector("#show-password");
 	const showPassword = document.querySelector("#password");
 	
 	showPassword.addEvetListener("click", function(){
 		this.classList.toggle("fa-eye-slash");
 		const type = passwordField.getAttribute("type")=== "password" ? "text" : "password"; 
 		passwordField.setAttribute("type", type);
-	})
+	}) {% endcomment %}
 
-</script> {% endcomment %} -->
+</script>
 
 
 {% endblock %}
