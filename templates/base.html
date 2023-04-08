@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" href="../static/image/shivila_logo.png">
+    <link rel="icon" href="{% static 'image/shivila_logo.png' %}">
 </head>
 <style>
     .navbar {
@@ -140,7 +140,7 @@
         <div class="container-fluid">
             <div class="header_box">
                 <a class="productLogo" href="https://shivila.com/" target="_blank"><img
-                        src="../static/image/shivilaLogoImg.png" alt="" class="shivilaLogo"></a>
+                        src="{% static 'image/shivilaLogoImg.png' %}" alt="" class="shivilaLogo"></a>
                 <a class="navbar-brand">Official Letter</a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -158,21 +158,29 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Create letter
+                            Create Letter
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li class="list"><a class="dropdown-item {% block nav_bill %}{% endblock %}"
                                     href="{% url 'reexpView' %}">Create Relieving Letter</a></li>
                             <li class="list"><a class="dropdown-item {% block nav_employee_exp %}{% endblock %}"
                                     href="{% url 'reexpView' %}">Create Employee Experience Letter</a></li>
+                            <li class="list"><a class="dropdown-item {% block nav_intern %}{% endblock %}"
+                                     href="{% url 'internView' %}">Create Intern Certificate</a></li>
                             <li class="list"><a class="dropdown-item {% block nav_employee_offer %}{% endblock %}"
-                                    href="{% url 'formView' %}">Create Employee Offer Letter</a></li>
+                                    href="{% url 'formView' %}">Create Employee Internship Letter</a></li>
                             <li class="list"><a
                                     class="dropdown-item {% block nav_candidates_rejected_mail %}{% endblock %}"
                                     href="{% url 'directmailView' %}">Create candidates rejected mail</a></li>
                             <li class="list"><a
                                     class="dropdown-item {% block nav_candidates_Apreciation %}{% endblock %}"
-                                    href="{% url 'appreciationView' %}">Create candidates Appreciation</a></li>
+                                    href="{% url 'appreciationView' %}">Create Employee Appreciation</a></li>
+                            <li class="list"><a
+                                    class="dropdown-item {% block nav_Employee_Termination %}{% endblock %}"
+                                    href="{% url 'terminationView' %}">Create Employee Termination</a></li>
+                            <li class="list"><a
+                                class="dropdown-item {% block nav_Employee_offernation %}{% endblock %}"
+                                href="{% url 'offersView' %}">Create Employee Offer</a></li>
                         </ul>
                     </li>
                     {% comment %} <li class="nav-item">
@@ -183,17 +191,37 @@
                         <a class="nav-link {% block nav_register %}{% endblock %} active"
                             href="{% url 'register' %}">Register</a>
                     </li> {% endcomment %}
-                    <li class="nav-item">
-                        <a class="nav-link {% block nav_success %}{% endblock %} active"
-                            href="{% url 'success' %}">Rejected List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% block nav_reexp %}{% endblock %} active"
-                            href="{% url 'reexp' %}">Relieving/Exp List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% block nav_appreciate %}{% endblock %} active"
-                            href="{% url 'appreciate' %}">Appreciation List</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            List
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="nav-item">
+                                <a class="nav-link {% block nav_success %}{% endblock %} active"
+                                    href="{% url 'success' %}">Rejected List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% block nav_reexp %}{% endblock %} active"
+                                    href="{% url 'reexp' %}">Relieving/Exp List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% block nav_interns %}{% endblock %} active"
+                                    href="{% url 'interncertificate' %}">Intern Certificate List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% block nav_appreciate %}{% endblock %} active"
+                                    href="{% url 'appreciate' %}">Appreciation List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% block nav_termination %}{% endblock %} active"
+                                    href="{% url 'terminate' %}">Termination List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% block nav_offernation %}{% endblock %} active"
+                                    href="{% url 'offersate' %}">Offer List</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% block nav_export_to_excel %}{% endblock %} active"

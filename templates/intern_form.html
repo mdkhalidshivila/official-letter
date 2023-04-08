@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% block title %}Generate Intern Certificate Letter{% endblock %}
+{% block nav_bill %}active{% endblock %}
+{% block content %}
+{% if form.errors %}
+{% for field in form %}
+{% for error in field.errors %}
+<div class="alert alert-danger">
+    <strong>{{ field.label }}</strong><span>{{ error|escape }}</strong>
+</div>
+{% endfor %}
+{% endfor %}
+{% for error in form.non_field_errors %}
+<div class="alert alert-danger">
+    <strong>{{ error|escape }}</strong>
+</div>
+{% endfor %}
+{% endif %}
+
+<style>
+    body {
+        height: 100vh;
+        /* background: linear-gradient(rgba(57, 14, 211, 0.751), rgba(11, 128, 224, 0.591)); */
+        background: linear-gradient(90deg, rgb(146, 225, 159) 0%, rgb(72, 245, 176)28%, rgba(66,222,196,1) 100%);
+        box-sizing: border-box;
+    }
+
+    .form_container {
+        background-color: white;
+        border: none;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        /* background: linear-gradient(rgba(175, 74, 234, 0.623), rgba(232, 9, 135, 0.514)); */
+        background-color: white;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    .btn_container{
+        width: 100%;
+    }
+    .submit_btn{
+        width: 180px;
+        margin: 0 460px;
+        background-color: rgb(4, 197, 146);
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+        border: none;
+    }
+    .submit_btn:hover{
+        background-color: rgb(21, 161, 124);
+        color: black;
+    }
+
+    @media screen and (min-width:270px) and (max-width:500px) {
+        .btn_container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+     .submit_btn{
+        margin: 0;
+     }   
+    }
+</style>
+
+<script>
+    function myFun(){
+        var correct_way = /^[A-Za-z]/;
+        var a = document.getElementById("id_employee_name").value;
+
+        if (a.length<3){
+            document.getElementById("Message").innerHTML="** username must be 3 character";
+            return false;
+        }
+        if (a.length>20){
+            document.getElementById("Message").innerHTML="** username must be less than 20 character";
+            return false;
+        }
+        if (a.match(correct_way))
+            true;
+            else{
+                document.getElementById("Message").innerHTML="** only Alphabets are allowed";
+                return false;
+
+        }
+    }
+</script>
+<form method="post" class="form_container" onsubmit=" return myFun()">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="id_employee_id" class="form-control-label mt-3 mb-3">Employee id</label>
+                <input type="number" name="employee_id" class="form-control bg-light" maxlength="150" required
+                    id="id_employee_id">
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="id_employee_email" class="form-control-label mt-3 mb-3">Employee Email</label>
+                <input type="text" name="employee_email" class="form-control bg-light" maxlength="150" required
+                    id="id_employee_email">
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="id_employee_name" class="form-control-label mt-3 mb-3">Employee name:</label>
+                <input type="text" name="employee_name" class="form-control bg-light" maxlength="100" required
+                    id="id_employee_name">
+                <p id= "Message" ></p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            {% comment %} <div class="form-group">
+                <label for="id_job_type" class="form-control-label mt-3 mb-3">Job Type</label>
+                <input type="dropdown-item" name="job_type" class="form-control bg-light" required id="id_job_type"
+                    maxlength="50">
+            </div> {% endcomment %}
+            <div class = "form-group">
+                <label for="id_job_type" class="form-control-label mt-3 mb-3">Job Type</label>
+
+                <select id="id_job_type" name="job_type"  class="form-control input1" required >
+
+                    <option >------------------Select-----------------</option>
+                    <option >Internship(Full Time)</option>
+                    <option >Part Time</option>
+                    <option >Full Time</option>
+
+                    <option >Remote(WFH)</option>
+
+                    <option >Internship</option>
+
+                    <option >WFO</option>
+
+                </select>
+            </div>    
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            {% comment %} <div class="form-group">
+                <label for="id_designation" class="form-control-label mt-3 mb-3">Designation:</label>
+                <input type="text" name="designation" class="form-control bg-light" required id="id_designation"
+                    maxlength="60">
+            </div> {% endcomment %}
+            <div class = "form-group">
+                <label for="id_designation" class="form-control-label mt-3 mb-3">Designation</label>
+
+                <select id="id_designation" name="designation"  class="form-control input1 " required >
+
+                    <option >------------------Select-----------------</option>
+                    <option >Python Intern</option>
+                    <option >django Intern</option>
+                    <option >Java Intern</option>
+                    <option >PHP Intern</option>
+                    <option >JavaScript Intern</option>
+                    <option >Node.js Intern</option>
+                    <option >C#,.ASP, .net Intern</option>
+                    <option >React Intern</option>
+                    <option >Frontend Intern</option>
+                    <option >Full stack Intern</option>
+                    <option >Manual Testing Intern</option>
+                    <option >Cloud Computing Intern</option>
+                    <option >IT Support Intern</option>
+                    <option >Content Writer Intern</option> 
+                    <option >DevOps Intern</option>
+                    <option >Automation Intern</option> 
+                    <option >Testing Intern</option>
+                    <option >Angular Intern</option>
+                    <option >Android Intern</option>
+                    <option >Flutter Intern</option>
+                    <option >Flutter Internship</option>
+                    <option >UI/UX Intern</option>
+                    <option >SEO Executive Intern</option>
+                    <option >Tele Marketing Intern</option>
+                    <option >Tele Caller Intern</option>
+                    <option >Team Lead</option>
+                    <option>Sales Intern</option>
+                    <option >Digital Marketing Intern</option>
+                    <option >Frontend(Html, css, js) Intern</option>
+                    <option >Frontend(Html5, css3, js) Intern</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="id_joindate" class="form-control-label mt-3 mb-3">Join Date:</label>
+                <input type="date" name="joindate" class="form-control bg-light" required id="id_joindate">
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="id_resignationdate" class="form-control-label mt-3 mb-3">Resignation Date:</label>
+                <input type="date" name="resignationdate" class="form-control bg-light" required
+                    id="id_resignationdate">
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="id_date" class="form-control-label mt-3 mb-3">Releasing Date:</label>
+                <input type="date" class="form-control bg-light" name="date" required id="id_date">
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 btn_container">
+            <button type="submit" class="btn btn-success mt-4 submit_btn">Submit details</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

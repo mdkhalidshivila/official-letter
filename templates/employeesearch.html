@@ -1,0 +1,47 @@
+{% comment %} {% extends "base.html" %}
+
+
+<center>
+    <br></br>
+    <h1 style= "justify-content: center;"> Employee Verfication Search Bar</h1>
+    <form action="{% url 'employeeSearchView' %}" method="GET" value="{{request.GET.q}}" class="search_form">
+        <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search"
+            class="search_input" />
+        <input type="submit" name="submit" value="Search" class="search_submit" />
+    </form>
+  </center>
+  {% if submitbuttons == 'Search' and request.GET.q != '' %}
+  {% if result %}
+  <br>
+  <h4>Results for {{ request.GET.q }}</h4>
+  <br />
+  
+  {% for rlt in result %}
+  
+  <h5>Docs No :- {{rlt.id}}</h5>
+  <br />
+  
+  <h5>Employee Name :- {{rlt.employee_name}}</h5>
+  <br />
+  
+  <h5>Employee mail :- {{rlt.employee_email}}</h5>
+  <br />
+  
+  <h5>Releaseing Date :- {{rlt.date}}</h5>
+  <br />
+  <h5>Designation :- {{rlt.designation}}</h5>
+  <br />
+  <h5>Job Type :- {{rlt.job_type}}</h5>
+  <br />
+  <h5>Join Date :- {{rlt.joindate}}</h5>
+  <br />
+  <h5>Resignation Date :- {{rlt.resignationdate}}</h5>
+  <br />
+  *******************************************
+  <br>
+  
+  {% endfor %}
+  {% else %}
+  No search results for this query
+  {% endif %}
+  {% endif %} {% endcomment %}

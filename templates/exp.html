@@ -72,20 +72,20 @@
         <h3 style="text-align:center; font-size: 20px;">Employee Experience Certificate</h3>
         <div class="container_body mt-3">
             
-            <h4 style="font-size: 15px;">Name of the Employee:- <span style="font-size: 15px; font-weight:bold;">{{ pt.employee_name.capitalize }}</span></h4>
-            <h5>Employee ID:- {{ pt.employee_id }}</h5>
-            <h5>Job Type:- {{ pt.job_type }}</h5>
-
+            <h4 style="font-size: 12px;">Employee Name : <span style="font-size: 15px; font-weight:bold;">{{ pt.employee_name.capitalize }}</span></h4>
+            <h5>Ref ID : {{ pt.date|date:"Y/md" }}/00{{ pt.employee_id }}</h5>
+            <h5>Job Type : {{ pt.job_type }}</h5>
+            <h5>Designation : {{ pt.designation }}</h5>
             <!-- <img class="watermark" src="../static/image/chat-icon.png" /> -->
 
             <div class="letter_body mt-4">
                 <br>
                 <h5>Dear <span>{{ pt.employee_name.capitalize }},</span></h5>
-                <h5>Sub:- Experience Certificate For an employee</h5>
+                <h5>Sub : Experience Certificate For an employee</h5>
                 <h5> The experience he/she has gained in our organization. As the head of
                 department in Shivila Technology. I hereby testify that this employee has
                 worked in our company from date:- {{ pt.joindate }} for {{ pt.resignationdate }} and has
-                gained experience in the {{ pt.designation }}.
+                gained experience in the<span style="font-size: 11px; font-weight:bold;">"{{ pt.designation }}"</span>.
                 It was great pleasure working with {{ pt.employee_name.capitalize }} for his employment
                 duration and proved himsel/herself as one of the most important assets
                 of the organization. We wish him/her a good life and better opportunity
@@ -102,7 +102,7 @@
         <div class="image_container2">
             <img src="../static/image/bottom.png" alt="" class="bottom_image">
         </div>
-        <p>{{pt.id}}</p> <p style="text-align:center;">page 1</p>
+        <p>{{pt.id}}</p> 
         {% comment %} <img width="110px" style="float: right;" src="http://127.0.0.1:8000/media/image/{{pt.employee_name}}.png" alt=""> {% endcomment %}
         {% endfor %}
     </div>

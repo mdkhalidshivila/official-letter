@@ -106,21 +106,23 @@
         <h3 style="text-align:center; font-size: 20px;">Relieving letter</h3>
         <div class="container_body mt-3">
             
-            <h4 style="font-size: 15px;">Name of the Employee:- <span style="font-size: 15px; font-weight:bold;">{{ pt.employee_name.capitalize }}</span></h4>
-            <h5>Employee ID:- {{ pt.employee_id }}</h5>
-            <h5>Joining date:- {{ pt.joindate }}</h5>
-            <h5>Job Type:- {{ pt.job_type }}</h5>
-            <h6>Releaseing date:- {{ pt.date|date:"d M Y" }}</h6>
+            <h4 style="font-size: 15px;">Employee Name : <span style="font-size: 15px; font-weight:bold;">{{ pt.employee_name.capitalize }}</span></h4>
+            <h5>Ref ID : {{ pt.date|date:"Y/md" }}/00{{ pt.employee_id }}</h5>
+            <h5>Joining date : {{ pt.joindate }}</h5>
+            <h5>Job Type : {{ pt.job_type }}</h5>
+            <h6>Releaseing date : {{ pt.date|date:"d M Y" }}</h6>
+            <h5>Designation : {{ pt.designation }}</h5>
 
             <!-- <img class="watermark" src="../static/image/chat-icon.png" /> -->
 
             <div class="letter_body mt-4">
+                <br>
                 <h5>Dear <span>{{ pt.employee_name.capitalize }},</span></h5>
                 <h5>Sub:- Relieving letter</h5>
-                <h5>We are in receipt of your resignation dated {{ pt.resignationdate }}</h5>
-                <h5>We have accepted your resignation and as per company policy you will be relieved with effect form
-                    {{ pt.resignationdate }}</h5>
-                <h5>We with you all the best for your future endeavours.</h5>
+                <p>We are in receipt of your resignation dated {{ pt.resignationdate }}</p>
+                <p>We have accepted your resignation and as per company policy you will be relieved with effect form
+                    {{ pt.resignationdate }}</p>
+                <p>We with you all the best for your future endeavours.</p>
                 <h5>Thanking you,</h5>
             </div>
             <div class="letter_ending">
@@ -133,7 +135,7 @@
         <div class="image_container2">
             <img src="../static/image/bottom.png" alt="" class="bottom_image">
         </div>
-        <p>{{pt.id}}</p> <p style="text-align:center;">page 1</p>
+        <p>{{pt.id}}</p> 
         {% comment %} <img width="110px" style="float: right;" src="http://127.0.0.1:8000/media/image/{{pt.employee_name}}.png" alt=""> {% endcomment %}
         {% endfor %}
     </div>

@@ -4,8 +4,8 @@ from django.shortcuts import render
 from traceback import format_stack
 from django.shortcuts import redirect, render, HttpResponse
 from django.views.decorators.csrf import csrf_protect 
-from .models import Bill, Rejected, Reexp, Appreciation
-from .forms import BillForm, RejectedForm, ReexpForm, AppreciationForm
+from .models import Bill, Rejected, Reexp, Appreciation, Termination, Offer, Intern
+from .forms import BillForm, RejectedForm, ReexpForm, AppreciationForm, TerminationForm, OfferForm, InternForm
 from .utils import Render
 from django.contrib.auth.decorators import login_required
 from .forms import NewUserForm, LinkMail
@@ -121,7 +121,11 @@ def pdf(request, id):
 def exp_pdf(request, id):
     bill = Reexp.objects.filter(id =id)
     return Render.render('exp.html', {'bill':bill})
-
+#Html to internship certificate view
+@csrf_protect 
+def intern_pdf(request, id):
+    bill = Intern.objects.filter(id =id)
+    return Render.render('intern.html', {'bill':bill})
 # html to offer view
 @csrf_protect 
 def offer_pdf(request, id):
@@ -135,7 +139,7 @@ from django.views import View
 from django.core.mail import EmailMessage
 
 from django.conf import settings
-from .forms import EmailForm, RelivingEmailForm, AppreciationEmailForm
+from .forms import EmailForm, RelivingEmailForm, AppreciationEmailForm, TerminationEmailForm, OffernationEmailForm,InternEmailForm
 
 class EmailAttachementView(View):
     form_class = EmailForm
@@ -226,7 +230,9 @@ def export_data_excel(request):
             "job_type": bills.job_type,
             "designation": bills.designation,
             "joindate": bills.joindate,
-            "date": bills.date
+            "date": bills.date,
+            "stipend": bills.stipend,
+            
 
         })
 
@@ -291,7 +297,7 @@ class RelivingEmailAttachementView(View):
             files = request.FILES.getlist('attach')
 
             try:
-                mail = EmailMessage('RELIVING LETTER', 'Greetings from Shivila Technologies.\n Hereby attached your Internship letter. \n Please sign and sent back To:- hr@shivila.com in CC :- recruiting@shivila.com at before the joining date. \n All the best.',
+                mail = EmailMessage('RELIVING & EXPERIENCE LETTER', 'Greetings from Shivila Technologies.\n Hereby attached your Relieving & Experience letter.',
                 settings.EMAIL_HOST_USER, [email])
                 for f in files:
                     mail.attach(f.name, f.read(), f.content_type)
@@ -431,3 +437,153 @@ class AppreciationEmailAttachementView(View):
                 return render(request, self.template_name, {'appreciationemail_form': form, 'error_message': 'Either the attachment is too big or corrupt'})
 
         return render(request, self.template_name, {'appreciationemail_form': form, 'error_message': 'Unable to send email. Please try again later'})
+
+
+@csrf_protect 
+def terminationView(request):
+    if request.method == 'POST':
+        form = TerminationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('terminate')
+    else:
+        form = TerminationForm()
+    return render(request, 'termination_form.html', {'form':form})
+
+def termination(request):
+    bill = Termination.objects.all().order_by('-date')
+    return render(request, 'terminate.html', {'bill': bill})
+
+@csrf_protect 
+def termination_pdf(request, id):
+    bill = Termination.objects.filter(id =id)
+    return Render.render('termination.html', {'bill':bill})
+
+
+class TerminationEmailAttachementView(View):
+    form_class = TerminationEmailForm
+    template_name = 'terminationemailattachment.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'terminationemail_form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+
+        if form.is_valid():
+            
+           
+           
+            email = form.cleaned_data['email']
+            files = request.FILES.getlist('attach')
+
+            try:
+                mail = EmailMessage('TERMINATION LETTER', 'Greetings from Shivila Technologies.',
+                settings.EMAIL_HOST_USER, [email])
+                for f in files:
+                    mail.attach(f.name, f.read(), f.content_type)
+                mail.send()
+                return render(request, self.template_name, {'terminationemail_form': form, 'error_message': 'Sent email to %s'%email})
+            except:
+                return render(request, self.template_name, {'terminationemail_form': form, 'error_message': 'Either the attachment is too big or corrupt'})
+
+        return render(request, self.template_name, {'terminationemail_form': form, 'error_message': 'Unable to send email. Please try again later'})
+
+# Offer views
+@csrf_protect 
+def offersView(request):
+    if request.method == 'POST':
+        form = OfferForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('offersate')
+    else:
+        form = OfferForm()
+    return render(request, 'offers_form.html', {'form':form})
+
+def offeration(request):
+    bill = Offer.objects.all().order_by('-date')
+    return render(request, 'offersate.html', {'bill': bill})
+
+@csrf_protect 
+def offers_pdf(request, id):
+    bill = Offer.objects.filter(id =id)
+    return Render.render('offernation.html', {'bill':bill})
+
+
+class OffersEmailAttachementView(View):
+    form_class = OffernationEmailForm
+    template_name = 'offernationemailattachment.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'offerinationemail_form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+
+        if form.is_valid():
+            
+           
+           
+            email = form.cleaned_data['email']
+            files = request.FILES.getlist('attach')
+
+            try:
+                mail = EmailMessage('OFFER LETTER', 'Greetings from Shivila Technologies.\n Hereby attached your Offer Letter. \n Please sign and sent back To:- hr@shivila.com in CC :- recruiting@shivila.com at before the joining date. \n All the best.',
+                settings.EMAIL_HOST_USER, [email])
+                for f in files:
+                    mail.attach(f.name, f.read(), f.content_type)
+                mail.send()
+                return render(request, self.template_name, {'terminationemail_form': form, 'error_message': 'Sent email to %s'%email})
+            except:
+                return render(request, self.template_name, {'terminationemail_form': form, 'error_message': 'Either the attachment is too big or corrupt'})
+
+        return render(request, self.template_name, {'terminationemail_form': form, 'error_message': 'Unable to send email. Please try again later'})
+
+
+@csrf_protect 
+def internView(request):
+    if request.method == 'POST':
+        form = InternForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('interncertificate')
+    else:
+        form = InternForm()
+    return render(request, 'intern_form.html', {'form':form})
+
+def intern(request):
+    bill = Intern.objects.all().order_by('-date')
+    return render(request, 'interncertificate.html', {'bill': bill})
+
+class InternEmailAttachementView(View):
+    form_class = InternEmailForm
+    template_name = 'internceremailattachment.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'internemail_form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+
+        if form.is_valid():
+            
+           
+           
+            email = form.cleaned_data['email']
+            files = request.FILES.getlist('attach')
+
+            try:
+                mail = EmailMessage('INTERNSHIP CERTIFICATE', 'Greetings from Shivila Technologies.\n Hereby attached your Internship Certificate.',
+                settings.EMAIL_HOST_USER, [email])
+                for f in files:
+                    mail.attach(f.name, f.read(), f.content_type)
+                mail.send()
+                return render(request, self.template_name, {'internemail_form': form, 'error_message': 'Sent email to %s'%email})
+            except:
+                return render(request, self.template_name, {'internemail_form': form, 'error_message': 'Either the attachment is too big or corrupt'})
+
+        return render(request, self.template_name, {'internemail_form': form, 'error_message': 'Unable to send email. Please try again later'})
